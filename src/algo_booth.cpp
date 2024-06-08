@@ -1,10 +1,11 @@
 #include"algo_booth.h"
 
+//Sets the entry values of the result along with estabilishing the count.
 void Booths::setup()
 {
-	
 	multiplicandSize = multiplicand.size();
 	count = multiplicandSize;
+	
 	for (int i = 0; i < 4; i++)
 		result.push_back(0);
 
@@ -19,13 +20,16 @@ void Booths::runAlgo()
 	{
 		switch (getCode())
 		{
+			//NOP
 			case 0:
 				shiftResultRight();
 				break;
+			//A+M
 			case 1:
 				additionOperation();
 				shiftResultRight();
 				break;
+			//A-M
 			case 2:
 				subtractionOperation();
 				shiftResultRight();
@@ -38,10 +42,11 @@ void Booths::runAlgo()
 
 }
 
+//Output is 8 bits which allows for results from -128 to 127
+//However in this 4 bit signed multiplication the max value is 64 (-8*-8) 
 void Booths::outputResult()
 {
 	int calc_res = 0;
-	//int vec_size = inConvert.size();
 
 	if (result[0] == 0)
 	{
@@ -74,13 +79,17 @@ void Booths::additionOperation()
 {
 	int result_Dec_TMP = convertToDec(result);
 	int multiplicand_Dec_TMP = convertToDec(multiplicand);
+
 	result_Dec_TMP += multiplicand_Dec_TMP;
+
+	//If there is an overflow.
 	if (result_Dec_TMP > 7)
 	{
 		result_Dec_TMP -= 8;
 	}
 
 	std::vector<int> tmp_result = convertToBin(result_Dec_TMP);
+
 	for (int i = 0; i < 4; i++)
 		result[i] = tmp_result[i];
 }
@@ -89,12 +98,17 @@ void Booths::subtractionOperation()
 {
 	int result_Dec_TMP = convertToDec(result);
 	int multiplicand_Dec_TMP = convertToDec(multiplicand);
+
 	result_Dec_TMP -= multiplicand_Dec_TMP;
+
+	//If there is an overflow.
 	if (result_Dec_TMP < -8)
 	{
 		result_Dec_TMP += 8;
 	}
+
 	std::vector<int> tmp_result = convertToBin(result_Dec_TMP);
+
 	for (int i = 0; i < 4; i++)
 		result[i] = tmp_result[i];
 
@@ -104,6 +118,7 @@ std::vector<int> Booths::convertToBin(int convertVal)
 {
 	std::vector<int> bin_result;
 	int powerHolder = 0;
+
 	if (convertVal > 0)
 	{
 		bin_result.push_back(0);
@@ -128,8 +143,11 @@ std::vector<int> Booths::convertToBin(int convertVal)
 	}
 	else if (convertVal < 0)
 	{
+		//-8 is the max negative value allowed by signed 4 bit numbers. Thus its result would be 1000 
+		//so by adding the negative value by 8 it allows me to compute the positive version.
 		convertVal += 8;
 		bin_result.push_back(1);
+
 		for (int i = 1; i < 4; i++)
 		{
 			powerHolder = pow(2, 3 - i);
@@ -158,8 +176,8 @@ std::vector<int> Booths::convertToBin(int convertVal)
 int Booths::convertToDec(std::vector<int>& inConvert)
 {
 	int calc_res = 0;
-	//int vec_size = inConvert.size();
-
+	
+	//Checks if the number is negative or not because that changes how I will calculate the decimal value
 	if (inConvert[0] == 0)
 	{
 		for (int i = 4; i > 1; i--)
@@ -193,11 +211,13 @@ void Booths::shiftResultRight()
 	if (result[0] == 1)
 	{
 		std::rotate(result.begin(), std::prev(result.end(), 1), result.end());
+		//Preserves the Twos Complement Sate
 		result[0] = 1;
 	}
 	else
 	{
 		std::rotate(result.begin(), std::prev(result.end(), 1), result.end());
+		//Preserves the Twos Complement Sate
 		result[0] = 0;
 	}
 }
@@ -238,6 +258,7 @@ void Booths::setmultiplicand(int in_Multiplicand)
 { 
 	multiplicand = convertToBin(in_Multiplicand);
 };
+
 void Booths::setmultiplier(int in_Multiplier)
 { 
 	multiplier = convertToBin(in_Multiplier);

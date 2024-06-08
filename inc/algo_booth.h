@@ -15,15 +15,15 @@ public:
 
 	void setmultiplicand(int in_Multiplicand);
 	void setmultiplier(int in_Multiplier);
-	int convertToDec(std::vector<int>& inConvert);
 
-	std::vector<int> convertToBin(int convertVal);
 private:
 
 	void additionOperation();
 	void subtractionOperation();
 
 
+	std::vector<int> convertToBin(int convertVal);
+	int convertToDec(std::vector<int>& inConvert);
 	void shiftResultRight();
 
 	uint8_t getCode();

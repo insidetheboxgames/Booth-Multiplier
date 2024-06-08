@@ -3,12 +3,14 @@
 
 int main()
 {
-	std::vector<int> result = {0,0,1,1 };
-	//std::cout << "Testing" << std::endl;
 	Booths b;
 
+	//M
 	b.setmultiplicand(7);
+	//Q
 	b.setmultiplier(7);
+
+
 	b.runAlgo();
 	
 	b.outputResult();
