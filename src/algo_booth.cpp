@@ -40,15 +40,54 @@ void Booths::runAlgo()
 		count--;
 	}
 
+	viewableRes = getReadableResult();
 }
 
 //Output is 8 bits which allows for results from -128 to 127
 //However in this 4 bit signed multiplication the max value is 64 (-8*-8) 
-void Booths::outputResult()
+int Booths::getReadableResult()
 {
 	int calc_res = 0;
+	
+	//First Three are special cases that seem to cause issues. I've seen it on other calculators.
+	//Need to further look at why this is failing and is requiring these if statements
+	if (multiplicand[0] == 1 && multiplier[0] == 1 && result[0] == 1)
+	{
+		for (int i = 8; i > 1; i--)
+		{
+			if (result[8 - i + 1] == 0)
+			{
+				calc_res += pow(2, i - 2);
+			}
+		}
 
-	if (result[0] == 0)
+		calc_res += 1;
+	}
+	else if (multiplicand[0] == 1 && multiplier[0] == 0 && result[0] == 0)
+	{
+		for (int i = 8; i > 1; i--)
+		{
+			if (result[8 - i + 1] == 1)
+			{
+				calc_res += pow(2, i - 2);
+			}
+		}
+
+		calc_res *= -1;
+	}
+	else if (multiplicand[0] == 0 && multiplier[0] == 1 && result[0] == 0)
+	{
+		for (int i = 8; i > 1; i--)
+		{
+			if (result[8 - i + 1] == 1)
+			{
+				calc_res += pow(2, i - 2);
+			}
+		}
+
+		calc_res *= -1;
+	}
+	else if (result[0] == 0)
 	{
 		for (int i = 8; i > 1; i--)
 		{
@@ -58,7 +97,7 @@ void Booths::outputResult()
 			}
 		}
 	}
-	if (result[0] == 1)
+	else if (result[0] == 1)
 	{
 		for (int i = 8; i > 1; i--)
 		{
@@ -72,7 +111,7 @@ void Booths::outputResult()
 		calc_res *= -1;
 	}
 
-	std::cout << calc_res << std::endl;
+	return calc_res;
 }
 
 void Booths::additionOperation()
@@ -86,6 +125,10 @@ void Booths::additionOperation()
 	if (result_Dec_TMP > 7)
 	{
 		result_Dec_TMP -= 8;
+	}
+	else if (result_Dec_TMP < -8)
+	{
+		result_Dec_TMP += 16;
 	}
 
 	std::vector<int> tmp_result = convertToBin(result_Dec_TMP);
@@ -102,9 +145,13 @@ void Booths::subtractionOperation()
 	result_Dec_TMP -= multiplicand_Dec_TMP;
 
 	//If there is an overflow.
-	if (result_Dec_TMP < -8)
+	if (result_Dec_TMP < -9)
 	{
 		result_Dec_TMP += 8;
+	}
+	else if (result_Dec_TMP >= 8)
+	{
+		result_Dec_TMP -= 16;
 	}
 
 	std::vector<int> tmp_result = convertToBin(result_Dec_TMP);
@@ -254,12 +301,23 @@ uint8_t Booths::getCode()
 }
 
 
-void Booths::setmultiplicand(int in_Multiplicand)
+void Booths::setMultiplicand(int in_Multiplicand)
 { 
 	multiplicand = convertToBin(in_Multiplicand);
 };
 
-void Booths::setmultiplier(int in_Multiplier)
+void Booths::setMultiplier(int in_Multiplier)
 { 
 	multiplier = convertToBin(in_Multiplier);
-};
+}
+void Booths::reset()
+{
+	result.clear();
+	multiplicand.clear();
+	multiplier.clear();
+	q_1 = 0;
+	result_size = 0;
+	count = 0;
+	multiplicandSize = 0;
+	viewableRes = 0;
+}

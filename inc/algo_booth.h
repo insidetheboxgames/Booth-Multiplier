@@ -10,11 +10,13 @@ public:
 
 	void runAlgo();
 
-	void outputResult();
+	int getReadableResult();
 
 
-	void setmultiplicand(int in_Multiplicand);
-	void setmultiplier(int in_Multiplier);
+	void setMultiplicand(int in_Multiplicand);
+	void setMultiplier(int in_Multiplier);
+
+	void reset();
 
 private:
 
@@ -42,6 +44,8 @@ private:
 
 	int count;
 	int multiplicandSize;
+
+	int viewableRes;
 };
 
 #endif ALGO_BOOTHS_H

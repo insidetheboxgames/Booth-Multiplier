@@ -1,19 +1,10 @@
-#include"algo_booth.h"
+#include"TestCases.h"
 
 
 int main()
 {
-	Booths b;
-
-	//M
-	b.setmultiplicand(7);
-	//Q
-	b.setmultiplier(7);
-
-
-	b.runAlgo();
-	
-	b.outputResult();
+	Booth_TestCase b_tc;
+	b_tc.runMultiplicationTest();
 
 	std::cin.get();
 
