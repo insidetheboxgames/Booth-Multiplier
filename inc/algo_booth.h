@@ -2,6 +2,7 @@
 #define ALGO_BOOTHS_H
 #include<iostream>
 #include<vector>
+#include"util.h"
 
 class Booths
 {
@@ -23,9 +24,6 @@ private:
 	void additionOperation();
 	void subtractionOperation();
 
-
-	std::vector<int> convertToBin(int convertVal);
-	int convertToDec(std::vector<int>& inConvert);
 	void shiftResultRight();
 
 	uint8_t getCode();
