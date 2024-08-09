@@ -18,12 +18,16 @@ public:
 private:
 	void altMultiplier();
 	void reciprocalEstimation();
+	void subtractFromTwo();
+
+	//Clock cycle.
+	void updateRegisters();
 
 	uint8_t m_dividend;
 	uint8_t m_divisor;
 
-	//[0] = N, [1]=D, [2]= F, [3]= intermediate
-	std::vector<std::vector<bool>> m_fraction;
+	//[0] = N, [1] = D, [2] = F, [3] = intermediate
+	std::vector<std::vector<bool>> m_Fraction;
 	std::vector<std::vector<bool>> m_intRepresentation;
 	//Gives the example of the register
 	std::vector<std::vector<bool>> m_Register;

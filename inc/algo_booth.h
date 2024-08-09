@@ -31,13 +31,13 @@ private:
 	//Using int because bool for a better visual debugging experience
 
 	//Commonly shown as M
-	std::vector<int> multiplicand;
+	std::vector<bool> multiplicand;
 	//Commonly shown as Q
-	std::vector<int> multiplier;
+	std::vector<bool> multiplier;
 	//Special Q-1 Register
 	bool q_1;
 
-	std::vector<int> result;
+	std::vector<bool> result;
 	int result_size;
 
 	int count;

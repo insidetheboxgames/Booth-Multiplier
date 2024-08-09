@@ -131,7 +131,7 @@ void Booths::additionOperation()
 		result_Dec_TMP += 16;
 	}
 
-	std::vector<int> tmp_result = convertToBin(result_Dec_TMP,4);
+	std::vector<bool> tmp_result = convertToBin(result_Dec_TMP,4);
 
 	for (int i = 0; i < 4; i++)
 		result[i] = tmp_result[i];
@@ -154,7 +154,7 @@ void Booths::subtractionOperation()
 		result_Dec_TMP -= 16;
 	}
 
-	std::vector<int> tmp_result = convertToBin(result_Dec_TMP,4);
+	std::vector<bool> tmp_result = convertToBin(result_Dec_TMP,4);
 
 	for (int i = 0; i < 4; i++)
 		result[i] = tmp_result[i];

@@ -4,22 +4,29 @@
 #include<vector>
 
 //Rewrite this
- static std::vector<int> convertToBin(int convertVal, int maxSize)
+ static std::vector<bool> convertToBin(int64_t convertVal, int maxSize)
 {
-	std::vector<int> bin_result;
-	int powerHolder = pow(2,maxSize-1);
+	std::vector<bool> bin_result;
+	uint64_t powerHolder = pow(2,maxSize-1);
 	int i = 2;
+
+	if (convertVal == 0)
+	{
+		for (int j = maxSize; j > 0; j--)
+			bin_result.push_back(0);
+
+		return bin_result;
+	}
 
 	if (convertVal > 0)
 		bin_result.push_back(0);
 	else
 	{
-		bin_result.push_back(1); 
-		powerHolder = pow(2, maxSize - 1);
+		bin_result.push_back(1);
 		convertVal += powerHolder; 
-		i++;
 	}
 
+	powerHolder = pow(2, maxSize - 2);
 	while (maxSize-i >= 0)
 	{
 		if (convertVal == powerHolder)
@@ -37,13 +44,13 @@
 			bin_result.push_back(0);
 		}
 		i++;
-		powerHolder = pow(2, maxSize - i);
+		powerHolder = (pow(2, maxSize - i));
 	}
 	
 	return bin_result;
 };
 
-static int convertToDec(std::vector<int>& inConvert, int bitsToConvert)
+static int convertToDec(std::vector<bool>& inConvert, int bitsToConvert)
 {
 	int calc_res = 0;
 	//Checks if the number is negative or not because that changes how I will calculate the decimal value

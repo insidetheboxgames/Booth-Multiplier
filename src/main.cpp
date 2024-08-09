@@ -4,13 +4,11 @@
 int main()
 {
 
-	convertToBin(-5,4);
-
 	Booth_TestCase b_tc;
 	b_tc.runMultiplicationTest();
 
 	goldschmidt gold;
-	gold.setup(8,8);
+	gold.setup(86,7);
 
 	std::cin.get();
 
