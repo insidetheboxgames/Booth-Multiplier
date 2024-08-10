@@ -74,13 +74,6 @@ void goldschmidt::reciprocalEstimation()
 		{
 			int shiftAmount = (2 * (8 - i)) + 1;
 			std::copy(m_intRepresentation[1].begin(), m_intRepresentation[1].end(), m_Register[2].begin());
-			/*
-			std::vector<bool>tmp = std::vector<bool>(shiftAmount);
-			m_Register[2] = tmp;
-			tmp = m_Register[1];
-			tmp.resize(32 - shiftAmount);
-			m_Register[2].insert(m_Register[2].end(), tmp.begin(), tmp.end());
-			*/
 			std::rotate(m_Register[2].begin(), std::prev(m_Register[2].end(), shiftAmount), m_Register[2].end());
 			shifted = true;
 			break;

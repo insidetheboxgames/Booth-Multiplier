@@ -8,7 +8,7 @@ int main()
 	b_tc.runMultiplicationTest();
 
 	goldschmidt gold;
-	gold.setup(86,7);
+	gold.setup(12,6);
 
 	std::cin.get();
 
